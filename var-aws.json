@@ -4,5 +4,7 @@
   "region": "ap-northeast-2",
   "vpc_id": "",
   "subnet_id": "",
-  "security_group_ids": ""
+  "security_group_ids": "",
+  "ssh_bastion_host": "",
+  "ssh_bastion_private_key_file": ""
 }

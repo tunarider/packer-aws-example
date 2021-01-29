@@ -12,3 +12,5 @@ crash.log
 *.box
 
 # End of https://www.toptal.com/developers/gitignore/api/packer
+
+var-my.json
