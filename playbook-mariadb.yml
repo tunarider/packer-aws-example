@@ -1,0 +1,37 @@
+- name: Mariadb
+  hosts: default
+  become: yes
+  tasks:
+    - name: Add MariaDB yum repository
+      yum_repository:
+        name: MariaDB
+        description: MariaDB Official YUM Repository
+        baseurl: http://yum.mariadb.org/10.4/centos7-amd64
+        gpgcheck: yes
+        gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+
+    - name: Install MariaDB
+      yum:
+        name: MariaDB-server
+        state: present
+
+    - name: Config MariaDB server
+      lineinfile:
+        path: /etc/my.cnf.d/server.cnf
+        insertafter: [mariadb]
+        line: "{{ item }}"
+      with_items:
+        - collation-server = utf8mb4_unicode_ci
+        - init-connect='SET NAMES utf8mb4'
+        - character-set-server = utf8mb4
+        - innodb_buffer_pool_size = 1536M
+        - log_output=FILE
+        - slow_query_log
+        - slow_query_log_file=slow-queries.log
+        - long_query_time=1.0
+        - log_queries_not_using_indexes=ON
+
+    - name: Enable MariaDB server
+      systemd:
+        name: mariadb
+        enabled: yes

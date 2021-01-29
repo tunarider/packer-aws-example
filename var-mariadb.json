@@ -1,0 +1,5 @@
+{
+  "image_name": "al2-mariadb",
+  "image_version": "v0.0.1",
+  "playbook_file": "playbook-mariadb.yml"
+}
